@@ -2,8 +2,10 @@ class ScoresController < ApplicationController
   before_action :set_user, only: [:create]
 
   def high_scores
-    @scores = Score.order('score').limit(5)
-    render json: @scores
+    results = {}
+    results['high_scores'] = Score.order('score').limit(5).pluck(:score)
+    results['user_score'] = User.find_by(device: params['device']).scores.order('score').last.score
+    render json: results
   end
 
   # POST /users
