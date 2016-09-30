@@ -1,5 +1,6 @@
 class ScoresController < ApplicationController
   before_action :set_user, only: [:create]
+  before_action :clean_data, only: [:high_scores]
 
   def high_scores
     results = {}
@@ -23,13 +24,17 @@ class ScoresController < ApplicationController
 
 
   private
+    def clean_date
+      Score.where(user_id: nil).delete_all
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(score_params['user_id'])
+      @user = User.find(score_params['user'])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.permit(:score, :user_id, :device)
+      params.permit(:score, :user, :device)
     end
 end
