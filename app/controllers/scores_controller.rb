@@ -3,7 +3,8 @@ class ScoresController < ApplicationController
 
   def high_scores
     results = {}
-    results['high_scores'] = Score.order('score').limit(5).pluck(:score)
+    scores = Score.order('score').limit(5)
+    results['high_scores'] = scores.map { |s| [s.user.name, s.score] }
     results['user_score'] = User.find_by(device: params['device']).scores.order('score').last.score
     render json: results
   end
