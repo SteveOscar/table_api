@@ -4,7 +4,7 @@ class ScoresController < ApplicationController
 
   def high_scores
     results = {}
-    scores = Score.order('score').limit(5)
+    scores = Score.order('score').reverse_order.limit(5)
     results['high_scores'] = scores.map { |s| [s.user.name, s.score] }
     results['user_score'] = User.find_by(device: params['device']).scores.order('score').last.score
     render json: results
@@ -24,7 +24,7 @@ class ScoresController < ApplicationController
 
 
   private
-    def clean_date
+    def clean_data
       Score.where(user_id: nil).delete_all
     end
 
