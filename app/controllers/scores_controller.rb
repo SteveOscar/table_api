@@ -4,9 +4,10 @@ class ScoresController < ApplicationController
 
   def high_scores
     results = {}
+    user = User.find_by(device: params['device'])
     scores = Score.order('score').reverse_order.limit(5)
     results['high_scores'] = scores.map { |s| [s.user.name, s.score] }
-    results['user_score'] = User.find_by(device: params['device']).scores.order('score').last.score
+    results['user_score'] = (user.scores.length > 0) ? user.scores.order('score').last.score : 0
     render json: results
   end
 
