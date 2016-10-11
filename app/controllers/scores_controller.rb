@@ -24,7 +24,7 @@ class ScoresController < ApplicationController
       user = User.find_by(device: params['device'])
       scores = Score.order('score').reverse_order.limit(5)
       results['high_scores'] = scores.map { |s| [s.user.name, s.score] }
-      results['user_score'] = (user.scores.length > 0) ? user.scores.order('score').last.score : 0
+      results['user_score'] = (user && user.scores.length > 0) ? user.scores.order('score').last.score : 0
       results
     end
 
