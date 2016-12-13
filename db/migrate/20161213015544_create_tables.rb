@@ -7,7 +7,6 @@ class CreateTables < ActiveRecord::Migration[5.0]
       t.boolean :food
       t.boolean :drinks
       t.integer :max_people
-      t.references :restaurant, foreign_key: true
       t.references :user, foreign_key: true
 
       t.timestamps

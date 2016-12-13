@@ -1,9 +1,10 @@
-
+class UsersController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
+    binding.pry
     @users = User.all
     render json: @users
   end
@@ -19,8 +20,9 @@
   # POST /users
   # POST /users.json
   def create
-    create_params = JSON.parse(request.raw_post)
-    @user = User.new(create_params)
+    payload = user_params
+    payload[is_restauant] = false if !user_params.is_restaurant
+    @user = User.new(payload)
     if @user.save
       render json: @user
     else
@@ -36,5 +38,7 @@
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :device)
+      params.require(:user).permit(:uid, :email, :location, :name, :is_restaurant, :genre, :website, :menu)
     end
+
+end

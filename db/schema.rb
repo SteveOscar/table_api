@@ -10,26 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924193030) do
+ActiveRecord::Schema.define(version: 20161213015544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "scores", force: :cascade do |t|
-    t.integer  "score"
+  create_table "tables", force: :cascade do |t|
+    t.datetime "time"
+    t.string   "description"
+    t.integer  "discount"
+    t.boolean  "food"
+    t.boolean  "drinks"
+    t.integer  "max_people"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_scores_on_user_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_tables_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
     t.string   "email"
-    t.string   "device"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "location"
+    t.string   "name"
+    t.string   "uid"
+    t.boolean  "is_restaurant"
+    t.string   "genre"
+    t.string   "website"
+    t.string   "menu"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_foreign_key "scores", "users"
+  add_foreign_key "tables", "users"
 end
