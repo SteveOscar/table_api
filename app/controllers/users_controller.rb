@@ -20,11 +20,10 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    payload = user_params
-    payload[is_restauant] = false if !user_params.is_restaurant
-    @user = User.new(payload)
-    if @user.save
-      render json: @user
+    payload = user_params.to_h
+    user = User.new(payload)
+    if user.save
+      render json: user
     else
       render json: {errors: @user.errors}, status: :unprocessable_entity
     end
