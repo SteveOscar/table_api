@@ -1,26 +1,24 @@
 class TablesController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @tables = User.all
-    render json: @tables
+  def nearby_tables
+    tables = Table.all.map{|t| t.description }
+    render json: tables
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /tables/1
+  # GET /tables/1.json
   def show
     # params[:id] is device id
-    @table = User.find_by(device: params[:id])
+    @table = Table.find_by(device: params[:id])
     render json: @table
   end
 
-  # POST /users
-  # POST /users.json
+  # POST /tables
+  # POST /tables.json
   def create
     create_params = JSON.parse(request.raw_post)
-    @table = User.new(create_params)
+    @table = Table.new(create_params)
     if @table.save
       render json: @table
     else
@@ -31,12 +29,12 @@ class TablesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @table = User.find(params[:id])
+      @table = Table.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :device)
+      params.require(:user).permit(:uid, :name, :email, :device)
     end
 
 end
