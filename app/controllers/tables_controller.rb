@@ -2,7 +2,7 @@ class TablesController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
 
   def nearby_tables
-    tables = Table.all.map{|t| t.description }
+    tables = Table.all.map{|t| t.food.to_s }
     render json: tables
   end
 

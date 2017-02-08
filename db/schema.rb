@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170208022727) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "the_tables", force: :cascade do |t|
+  create_table "tables", force: :cascade do |t|
     t.integer  "restaurant_id"
     t.datetime "time"
     t.string   "description"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20170208022727) do
     t.boolean  "reserved"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["restaurant_id"], name: "index_the_tables_on_restaurant_id", using: :btree
+    t.index ["restaurant_id"], name: "index_tables_on_restaurant_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,5 +54,5 @@ ActiveRecord::Schema.define(version: 20170208022727) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "the_tables", "restaurants"
+  add_foreign_key "tables", "restaurants"
 end

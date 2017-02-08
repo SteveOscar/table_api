@@ -1,6 +1,6 @@
-class CreateTheTables < ActiveRecord::Migration[5.0]
+class CreateTables < ActiveRecord::Migration[5.0]
   def change
-    create_table :the_tables do |t|
+    create_table :tables do |t|
       t.references :restaurant, foreign_key: true
       t.datetime :time
       t.string :description
