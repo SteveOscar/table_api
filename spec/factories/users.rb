@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :user do
     email "MyString"
+    zip 1
     location "MyString"
-    name "MyString"
+    uid "MyString"
+    tables "MyString"
   end
 end

@@ -1,11 +1,12 @@
 FactoryGirl.define do
   factory :table do
-    time "2016-12-12 18:55:44"
+    restaurant nil
+    time "2017-02-07 19:23:19"
     description "MyString"
-    discount 1
+    discount "MyString"
     food false
     drinks false
     max_people 1
-    user nil
+    reserved false
   end
 end

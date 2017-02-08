@@ -10,36 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213015544) do
+ActiveRecord::Schema.define(version: 20170208022727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "tables", force: :cascade do |t|
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "uid"
+    t.string   "genre"
+    t.string   "website"
+    t.string   "menu"
+    t.string   "description"
+    t.integer  "zip"
+    t.string   "location"
+    t.boolean  "verified"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "the_tables", force: :cascade do |t|
+    t.integer  "restaurant_id"
     t.datetime "time"
     t.string   "description"
-    t.integer  "discount"
+    t.string   "discount"
     t.boolean  "food"
     t.boolean  "drinks"
     t.integer  "max_people"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["user_id"], name: "index_tables_on_user_id", using: :btree
+    t.boolean  "reserved"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["restaurant_id"], name: "index_the_tables_on_restaurant_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
+    t.integer  "zip"
     t.string   "location"
-    t.string   "name"
     t.string   "uid"
-    t.boolean  "is_restaurant"
-    t.string   "genre"
-    t.string   "website"
-    t.string   "menu"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "tables"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "tables", "users"
+  add_foreign_key "the_tables", "restaurants"
 end
