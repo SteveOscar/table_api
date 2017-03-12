@@ -10,6 +10,7 @@ gem 'pg'
 gem 'faraday'
 gem 'responders'
 gem 'rack-cors'
+gem 'jwt'
 group :development, :test do
   gem 'byebug'
   gem 'pry'
