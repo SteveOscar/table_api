@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
     if user && user.authenticate(params[:password])
         auth_token = JsonWebToken.encode({user_id: user.id})
-        render json: {auth_token: auth_token}, status: :ok
+        render json: user.attributes.slice('id', 'email').merge({auth_token: auth_token}), status: :ok
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
