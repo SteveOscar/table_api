@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:update, :destroy]
+  before_action :authenticate_request!, only: [:index]
 
   # GET /users
   # GET /users.json
   def index
-    binding.pry
     users = User.all
     render json: users
   end

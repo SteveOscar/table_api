@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: :create do
+  resources :users do
       collection do
         post 'confirm'
         post 'login'
