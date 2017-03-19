@@ -27,6 +27,20 @@ module TableApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.perform_deliveries = true
+    ActionMailer::Base.delivery_method = :smtp
+    ActionMailer::Base.smtp_settings = {
+       :address => "smtp.gmail.com",
+       :port => 587,
+       :domain => "gmail.com",
+       :authentication => 'plain',
+       :user_name => "stevenoscarolson@gmail.com",
+       :password => "NewSong44",
+       :enable_starttls_auto => true
+    }
+
     # Get that webtoken file in lib
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')

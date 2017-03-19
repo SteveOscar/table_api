@@ -12,8 +12,6 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    # params[:id] is device id
-    binding.pry
     user = User.find_by(uid: params[:id])
     if user
       puts 'USER FOUND'
@@ -25,11 +23,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
+    @user = User.new(user_params)
+    if @user.save
+      UserMailer.registration_confirmation(@user).deliver
       render json: {status: 'User created successfully'}, status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
   end
 
@@ -43,6 +42,17 @@ class UsersController < ApplicationController
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
   end
+
+  def confirm_email
+    user = User.find_by_confirm_token(params[:id])
+    if user
+      user.email_activate
+      render html: '<div>Your TableGrab account has been confirmed. Please sign in on the mobile app.</div>'.html_safe
+    else
+      flash[:error] = "Sorry. User does not exist"
+      redirect_to root_url
+    end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.

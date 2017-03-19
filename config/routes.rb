@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users do
       collection do
+        get 'confirm_email'
         post 'confirm'
         post 'login'
       end
